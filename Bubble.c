@@ -21,12 +21,22 @@ void bubbleshort(int arr[], int n){
  }
 }
 //
+void selectionshort(int arr[],int n){
+    for(int i=0; i<n+1; i++){
+        int smallestindex= i;
+        for(int j=i+1; j<n; j++){
+            if(arr[j]<arr[smallestindex]){
+                swap(&arr[j],&arr[smallestindex]);
+            }
+        }
+    }
+}
 int main() {
  int arr[]={4,1,5,2,3};
  int n=sizeof(arr)/sizeof(arr[0]);
      print(arr,n);
      printf("\n");
-     bubbleshort(arr,n);
+     selectionshort(arr,n);
  
     print(arr,n);
     
