@@ -1,4 +1,5 @@
 // Online C compiler to run C program online
+//Big of N square [O(n^2)]
 #include <stdio.h>
 void swap(int *a, int*b){
     int c=*a;
