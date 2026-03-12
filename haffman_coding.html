@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Huffman Coding</title>
+<style>
+body{
+    font-family: Arial, sans-serif;
+    background:#0f172a;
+    color:white;
+    margin:40px;
+}
+h1{
+    text-align:center;
+    color:#22c55e;
+}
+h2{
+    color:#38bdf8;
+}
+.container{
+    background:#1e293b;
+    padding:20px;
+    border-radius:10px;
+}
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:15px;
+}
+th,td{
+    border:1px solid #38bdf8;
+    padding:10px;
+    text-align:center;
+}
+th{
+    background:#334155;
+}
+.code{
+    background:black;
+    padding:10px;
+    border-radius:6px;
+    color:#22c55e;
+}
+</style>
+</head>
+
+<body>
+
+<h1>Huffman Coding</h1>
+
+<div class="container">
+
+<h2>Definition</h2>
+<p>
+Huffman Coding is a lossless data compression algorithm. 
+It assigns shorter binary codes to characters with higher frequency 
+and longer codes to characters with lower frequency.
+</p>
+
+<h2>Steps of Huffman Coding</h2>
+<ol>
+<li>Count frequency of each character.</li>
+<li>Create a node for each character.</li>
+<li>Build a priority queue (min heap).</li>
+<li>Take two nodes with lowest frequency.</li>
+<li>Create a new node with sum of their frequencies.</li>
+<li>Repeat until only one node remains (Huffman Tree).</li>
+<li>Assign 0 to left edge and 1 to right edge.</li>
+</ol>
+
+<h2>Example</h2>
+
+<table>
+<tr>
+<th>Character</th>
+<th>Frequency</th>
+<th>Huffman Code</th>
+</tr>
+
+<tr>
+<td>A</td>
+<td>3</td>
+<td>101</td>
+</tr>
+
+<tr>
+<td>B</td>
+<td>2</td>
+<td>100</td>
+</tr>
+
+<tr>
+<td>C</td>
+<td>6</td>
+<td>11</td>
+</tr>
+
+<tr>
+<td>D</td>
+<td>8</td>
+<td>0</td>
+</tr>
+
+</table>
+
+<h2>Encoded Output Example</h2>
+
+<p>If message is:</p>
+
+<div class="code">
+ABCD
+</div>
+
+<p>Encoded binary:</p>
+
+<div class="code">
+101 100 11 0
+</div>
+
+<h2>Advantages</h2>
+<ul>
+<li>Reduces file size</li>
+<li>Lossless compression</li>
+<li>Efficient for data transmission</li>
+</ul>
+
+</div>
+
+</body>
+</html>
