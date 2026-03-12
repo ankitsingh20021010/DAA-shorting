@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Huffman Coding Visualizer</title>
+
+<style>
+
+body{
+font-family:Arial;
+background:#0f172a;
+color:white;
+text-align:center;
+padding:40px;
+}
+
+input{
+padding:8px;
+margin:5px;
+border-radius:5px;
+border:none;
+}
+
+button{
+padding:10px 20px;
+background:#22c55e;
+border:none;
+border-radius:6px;
+cursor:pointer;
+font-weight:bold;
+}
+
+#tree{
+margin-top:40px;
+display:flex;
+justify-content:center;
+flex-direction:column;
+align-items:center;
+}
+
+.node{
+background:#1e293b;
+padding:10px;
+margin:10px;
+border-radius:8px;
+border:2px solid #38bdf8;
+display:inline-block;
+}
+
+.line{
+height:30px;
+width:2px;
+background:white;
+margin:auto;
+}
+
+.codes{
+margin-top:30px;
+}
+
+</style>
+</head>
+
+<body>
+
+<h1>Huffman Coding Visualizer</h1>
+
+<p>Enter Characters</p>
+<input id="chars" placeholder="Example: ABCD">
+
+<p>Enter Frequencies</p>
+<input id="freqs" placeholder="Example: 3,2,6,8">
+
+<br><br>
+
+<button onclick="buildHuffman()">Generate Huffman Tree</button>
+
+<div id="tree"></div>
+
+<div class="codes" id="codes"></div>
+
+<script>
+
+class Node{
+constructor(char,freq,left=null,right=null){
+this.char=char
+this.freq=freq
+this.left=left
+this.right=right
+}
+}
+
+function buildHuffman(){
+
+let chars=document.getElementById("chars").value.split("")
+let freqs=document.getElementById("freqs").value.split(",").map(Number)
+
+let nodes=[]
+
+for(let i=0;i<chars.length;i++){
+nodes.push(new Node(chars[i],freqs[i]))
+}
+
+while(nodes.length>1){
+
+nodes.sort((a,b)=>a.freq-b.freq)
+
+let left=nodes.shift()
+let right=nodes.shift()
+
+let newNode=new Node(null,left.freq+right.freq,left,right)
+
+nodes.push(newNode)
+}
+
+let root=nodes[0]
+
+drawTree(root)
+
+let codes={}
+generateCodes(root,"",codes)
+
+let output="<h2>Huffman Codes</h2>"
+
+for(let key in codes){
+output+=key+" : "+codes[key]+"<br>"
+}
+
+document.getElementById("codes").innerHTML=output
+
+}
+
+function generateCodes(node,code,map){
+
+if(!node) return
+
+if(node.char){
+map[node.char]=code
+}
+
+generateCodes(node.left,code+"0",map)
+generateCodes(node.right,code+"1",map)
+
+}
+
+function drawTree(node){
+
+let container=document.getElementById("tree")
+container.innerHTML=""
+
+function createNode(n){
+
+let div=document.createElement("div")
+div.className="node"
+
+if(n.char)
+div.innerHTML=n.char+" ("+n.freq+")"
+else
+div.innerHTML=n.freq
+
+let children=document.createElement("div")
+children.style.display="flex"
+children.style.justifyContent="center"
+
+if(n.left){
+let left=createNode(n.left)
+children.appendChild(left)
+}
+
+if(n.right){
+let right=createNode(n.right)
+children.appendChild(right)
+}
+
+if(n.left || n.right){
+let line=document.createElement("div")
+line.className="line"
+div.appendChild(line)
+div.appendChild(children)
+}
+
+return div
+}
+
+container.appendChild(createNode(node))
+
+}
+
+</script>
+
+</body>
+</html>
